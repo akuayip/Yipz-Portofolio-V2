@@ -1,5 +1,6 @@
 export type ProjectStatus = "concept" | "research" | "prototype" | "deployed";
 export type ContentStatus = "sample" | "draft" | "verified";
+export type ProjectCategory = "AI / ML" | "Computer Vision" | "Data" | "Web" | "Games" | "Mobile";
 
 export type ProjectMetric = {
   label: string;
@@ -37,6 +38,8 @@ export type Project = {
   teamSize?: number;
   technologies: string[];
   domain: string;
+  categories: ProjectCategory[];
+  featured: boolean;
   metrics: ProjectMetric[];
   sections: Record<string, ProjectSection | undefined>;
   accent: string;
@@ -46,4 +49,8 @@ export type Project = {
     url?: string;
   };
   published: boolean;
+  links?: {
+    repository?: string;
+    live?: string;
+  };
 };

@@ -46,7 +46,7 @@ Sebelum mengubah `contentStatus` menjadi `verified`, lengkapi:
 - batasan, failure cases, pelajaran, dan tautan asli;
 - screenshot, diagram, atau sample output yang boleh dipublikasikan.
 
-Empat record awal masih `draft`. Angka Mamba-YOLO dari master spec tidak ditampilkan karena sumber, dataset, hardware, dan metodologinya belum diverifikasi.
+Record proyek tetap berstatus `draft` sampai peran, tahun, aset visual, dan bukti pendukungnya lengkap. Metrik penelitian Vision Mamba dan Mamba-YOLO yang diberikan pemilik sudah ditampilkan dengan konteks eksperimen; detail hardware inferensi masih perlu ditambahkan sebelum publikasi final.
 
 ## Demo AI
 

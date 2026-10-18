@@ -19,9 +19,9 @@ export function LanyardPortrait({ name, portraitPath }: LanyardPortraitProps) {
         orientation="portrait"
         finish="holographic"
         cornerRadius={0.2}
-        size={0.54}
-        anchor="right"
-        strapLength={0.5}
+        size={0.46}
+        anchor="center"
+        strapLength={0.68}
         strapColor="#9a3f1f"
         strapWidth={0.7}
         metal="silver"

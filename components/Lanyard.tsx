@@ -1079,8 +1079,14 @@ const Lanyard = ({
 
     const frameView = () => {
       const s = settingsRef.current!;
+      const containerRect = container.getBoundingClientRect();
+      const stageRect = container.parentElement?.getBoundingClientRect();
+      const headerBottom = document.querySelector<HTMLElement>('.site-header')?.getBoundingClientRect().bottom;
+      const useHeaderAnchor = window.matchMedia('(min-width: 901px)').matches && headerBottom !== undefined && stageRect !== undefined;
       const aspect = view.width / view.height;
       let viewHeight = layout.height / clamp(s.size, 0.15, 0.9);
+      const originalCanvasHeight = stageRect ? stageRect.height + 300 : view.height;
+      if (useHeaderAnchor) viewHeight *= view.height / originalCanvasHeight;
       const minimumWidth = layout.width / 0.72;
       if (viewHeight * aspect < minimumWidth) viewHeight = minimumWidth / aspect;
       const viewWidth = viewHeight * aspect;
@@ -1092,9 +1098,22 @@ const Lanyard = ({
       foilUniforms.foilKey.value.set(-2.5, 4, 6).normalize().transformDirection(camera.matrixWorldInverse);
       foilUniforms.foilFill.value.set(3, -1, 4).normalize().transformDirection(camera.matrixWorldInverse);
       foilUniforms.foilTop.value.set(0.5, 4.5, 8).normalize().transformDirection(camera.matrixWorldInverse);
-      const anchorX = ((ANCHORS[s.anchor] ?? 0.5) - 0.5) * viewWidth;
-      const anchorY = viewHeight / 2 + 0.2;
-      const cardTop = viewHeight / 2 - viewHeight * mix(0.12, 0.42, clamp(s.strapLength, 0, 1));
+      const anchorRatio = ANCHORS[s.anchor] ?? 0.5;
+      const anchorPixel = stageRect
+        ? stageRect.left - containerRect.left + stageRect.width * anchorRatio
+        : view.width * anchorRatio;
+      const anchorX = (anchorPixel / view.width - 0.5) * viewWidth;
+      // Hide the actual pivot behind the sticky header so the visible strap
+      // enters the page as one continuous band when the card swings sideways.
+      const anchorPixelY = useHeaderAnchor ? headerBottom - containerRect.top - 56 : -4;
+      const anchorY = (0.5 - anchorPixelY / view.height) * viewHeight;
+      const hangingRatio = mix(0.12, 0.42, clamp(s.strapLength, 0, 1));
+      const originalCardTopPixel = stageRect
+        ? stageRect.top - containerRect.top - 150 + originalCanvasHeight * hangingRatio
+        : view.height * hangingRatio;
+      const cardTop = useHeaderAnchor
+        ? (0.5 - originalCardTopPixel / view.height) * viewHeight
+        : viewHeight / 2 - viewHeight * hangingRatio;
       const hangTop = cardTop + (layout.hangY - layout.height / 2);
       sim.anchor.set(anchorX, anchorY, 0);
       configureSimulation(sim, layout, anchorY - hangTop);
@@ -1450,7 +1469,7 @@ const Lanyard = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={`relative w-full h-full overflow-hidden ${className}`.trim()} style={style} />
+    <div ref={containerRef} className={`relative w-full h-full overflow-visible ${className}`.trim()} style={style} />
   );
 };
 

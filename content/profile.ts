@@ -1,6 +1,6 @@
 export const profile = {
-  name: "ARIEF | YIPZ | YIPPZA",
-  initials: "YN",
+  name: "MARH",
+  initials: "A",
   title: "AI / Machine Learning Engineer",
   headline: "Building intelligent systems that work beyond notebooks.",
   summary:

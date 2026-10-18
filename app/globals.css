@@ -52,6 +52,9 @@
 .project-media-carousel.visual-blue{--media-bg:#c8d8d9;--media-deep:#47777a}
 .project-media-carousel.visual-plum{--media-bg:#d2c7d4;--media-deep:#725878}
 .project-media-carousel.visual-green{--media-bg:#cad6c5;--media-deep:#53704d}
+.project-media-single{display:block;width:100%;padding:0;overflow:hidden;border:0;border-radius:3px 42px 3px 3px;background:var(--media-bg);cursor:zoom-in}
+.project-media-single img{display:block;width:100%;height:auto;max-height:680px;object-fit:contain}
+.project-media-single:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 .project-media-track{display:flex;height:510px;gap:10px;overflow:hidden}
 .project-media-item{position:relative;min-width:0;flex:.72 1 0;overflow:hidden;padding:0;border:0;border-radius:3px 34px 3px 3px;background:var(--media-bg);color:var(--ink);text-align:left;cursor:pointer;isolation:isolate;transition:flex .72s cubic-bezier(.16,1,.3,1),filter .35s ease;filter:saturate(.72)}
 .project-media-item[data-active="true"]{flex:3.6 1 0;filter:saturate(1)}
@@ -129,11 +132,11 @@
 .project-flex-carousel canvas{display:block!important;width:100%!important;height:100%!important}
 .hero-copy{z-index:1!important}
 .lanyard-stage{position:relative;z-index:70!important;pointer-events:auto}
-.lanyard-stage>div{top:-150px;right:0;bottom:auto;left:auto;width:calc(100% + min(70vw,1200px));height:calc(100% + 300px);overflow:visible;pointer-events:none}
-@media(max-width:900px){.lanyard-stage>div{inset:0;width:100%;height:100%}}
+.lanyard-stage>div{top:-60vh;right:auto;bottom:auto;left:-70vw;width:calc(100% + 140vw);height:calc(100% + 60vh + 150px);overflow:visible;pointer-events:none}
+@media(max-width:900px){.lanyard-stage>div{top:-100px;right:auto;bottom:auto;left:-100vw;width:300vw;height:calc(100% + 200px)}}
 @media(max-width:680px){.project-image-link>figure{height:min(76vw,310px)}.project-image-link>figure>div{height:100%}}
 @media(max-width:680px){.project-flex-carousel{height:430px;border-radius:3px 28px 3px 3px}}
-@media(max-width:680px){.lanyard-stage>div{inset:0;width:100%;height:100%}}
+@media(max-width:680px){.lanyard-stage>div{top:-80px;right:auto;bottom:auto;left:-100vw;width:300vw;height:calc(100% + 160px)}}
 .dom-lanyard{position:absolute;inset:0;z-index:2;overflow:visible;touch-action:auto;pointer-events:none}
 .dom-lanyard.is-dragging{z-index:90}
 .dom-lanyard-rope{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
@@ -243,6 +246,45 @@
   .site-footer{padding-top:66px}
 }
 
+.metric-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;
+  margin-top:34px;
+  border:1px solid var(--border);
+  background:var(--border);
+}
+.metric-card{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  padding:20px;
+  background:var(--background);
+}
+.metric-card span{
+  font-family:var(--font-mono);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.metric-card strong{
+  margin-top:10px;
+  font-size:1.45rem;
+  font-weight:560;
+  letter-spacing:-.025em;
+}
+.metric-card p{
+  margin:4px 0 0;
+  font-size:.72rem;
+  color:var(--muted);
+}
+
+@media(max-width:680px){
+  .metric-grid{grid-template-columns:1fr;margin-top:26px}
+  .metric-card{padding:17px}
+}
+
 @media(max-width:380px){
   .hero h1,.page-intro h1,.about-hero h1,.contact-page h1{font-size:2.45rem}
   .lanyard-stage{height:390px;min-height:390px;margin-top:60px}
@@ -254,3 +296,29 @@
 .contact-grid>a:last-child{border-right:0}
 .contact-grid>a:hover strong{color:var(--accent)}
 @media(max-width:900px){.contact-grid>a,.contact-grid>a:first-child{padding:25px 0;border-right:0;border-bottom:1px solid var(--border)}.contact-grid>a:last-child{border-bottom:0}}
+
+/* Keep the hero proportional on compact laptops and on very wide/zoomed-out viewports. */
+@media (min-width:901px) and (max-width:1100px){
+  .hero{grid-template-columns:minmax(0,1.05fr) minmax(300px,.72fr);gap:5%;padding-block:58px 72px}
+  .hero h1{font-size:clamp(3.45rem,6.4vw,4.7rem)}
+  .hero-summary{margin-top:26px;font-size:1.02rem}
+  .hero-actions{margin-top:30px}
+  .lanyard-stage{height:min(60vh,550px);min-height:460px}
+}
+
+@media (min-width:1500px){
+  :root{--max:min(86vw,2200px)}
+  .hero{grid-template-columns:minmax(0,1.15fr) minmax(380px,.68fr);gap:7%}
+  .hero h1{font-size:clamp(5rem,6.2vw,8.5rem);max-width:1120px}
+  .hero-summary{max-width:680px;font-size:clamp(1.08rem,1.05vw,1.35rem)}
+  .lanyard-stage{height:min(68vh,760px);min-height:520px}
+}
+
+.hero-particles{position:absolute;z-index:0;inset:2% -4% 3%;overflow:hidden;pointer-events:none;opacity:.62;mask-image:linear-gradient(90deg,#000 0%,#000 72%,transparent 96%)}
+.hero-particles>div,.hero-particles canvas{display:block;width:100%;height:100%}
+@media(max-width:900px){.hero-particles{inset:0;opacity:.46;mask-image:linear-gradient(180deg,#000 0%,#000 58%,transparent 92%)}}
+@media(max-width:680px){.hero-particles{opacity:.32}}
+
+/* The lanyard canvas extends beyond the hero to preserve free dragging.
+   Keep that render surface from widening the page itself. */
+html,body{max-width:100%;overflow-x:clip}

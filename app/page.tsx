@@ -1,18 +1,30 @@
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { profile, capabilities, toolbox } from "@/content/profile";
-import { projects } from "@/content/projects";
+import { featuredProjects } from "@/content/projects";
 import { ProjectCard } from "@/components/project-card";
-import { HeroScene } from "@/components/hero-scene";
 import { CinematicIntro } from "@/components/cinematic-intro";
 import { LanyardPortrait } from "@/components/lanyard-portrait";
+import Particles from "@/components/Particles";
 
 export default function Home() {
   return (
     <>
       <CinematicIntro />
       <section className="hero shell">
-        <HeroScene />
+        <div className="hero-particles" aria-hidden="true">
+          <Particles
+            particleCount={110}
+            particleSpread={12}
+            speed={0.06}
+            particleColors={["#b65329", "#c97852", "#8f6a58"]}
+            alphaParticles
+            particleBaseSize={72}
+            sizeRandomness={0.75}
+            cameraDistance={22}
+            pixelRatio={1}
+          />
+        </div>
         <div className="hero-copy">
           <p className="eyebrow">AI / MACHINE LEARNING ENGINEER</p>
           <h1>{profile.headline}</h1>
@@ -33,11 +45,11 @@ export default function Home() {
 
       <section className="section shell" id="work">
         <div className="section-heading">
-          <div><p className="eyebrow">SELECTED WORK · DRAFT PORTFOLIO</p><h2>Four problems.<br />Four different lenses.</h2></div>
+          <div><p className="eyebrow">FEATURED AI / ML WORK</p><h2>Six projects.<br />Six different challenges.</h2></div>
           <p>Each case study is structured to show why the work mattered, how decisions were made, and what evidence supports the outcome.</p>
         </div>
         <div className="project-list">
-          {projects.map((project) => <ProjectCard project={project} key={project.slug} />)}
+          {featuredProjects.map((project) => <ProjectCard project={project} key={project.slug} />)}
         </div>
         <div className="center-action"><Link className="button button-secondary" href="/projects">View all projects</Link></div>
       </section>

@@ -24,7 +24,11 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="project-meta">
           <span>{project.domain}</span>
           <span>{project.status}</span>
-          <span className="draft-badge">Draft · details pending</span>
+          {project.contentStatus !== "verified" && (
+            <span className="draft-badge">
+              {project.contentStatus === "sample" ? "Sample content" : "Draft · details pending"}
+            </span>
+          )}
         </div>
         <h3><Link href={`/projects/${project.slug}`}>{project.title}</Link></h3>
         <p>{project.tagline}</p>

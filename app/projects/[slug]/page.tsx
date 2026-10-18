@@ -20,13 +20,28 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound();
   const sections = Object.entries(project.sections).filter((entry): entry is [string, NonNullable<typeof entry[1]>] => Boolean(entry[1]));
 
+  function renderBullet(item: string, emphasizeLabel: boolean) {
+    if (!emphasizeLabel) return item;
+    const [label, ...description] = item.split(" — ");
+    if (description.length === 0) return item;
+    return <><strong>{label}</strong> — {description.join(" — ")}</>;
+  }
+
   return (
     <article className="case-study">
       <header className="case-hero shell">
         <Link href="/projects" className="back-link"><ArrowLeft size={16} /> All projects</Link>
         <div className="case-title-row">
           <div>
-            <div className="project-meta"><span>{project.domain}</span><span>{project.status}</span><span className="draft-badge">Draft · details pending</span></div>
+            <div className="project-meta">
+              <span>{project.domain}</span>
+              <span>{project.status}</span>
+              {project.contentStatus !== "verified" && (
+                <span className="draft-badge">
+                  {project.contentStatus === "sample" ? "Sample content" : "Draft · details pending"}
+                </span>
+              )}
+            </div>
             <h1>{project.title}</h1><p>{project.tagline}</p>
           </div>
           <span className="case-index">{project.index}</span>
@@ -55,7 +70,18 @@ export default async function ProjectPage({ params }: Props) {
         </aside>
         <div className="case-content">
           <section className="quick-read">
-            <p className="eyebrow">QUICK READ</p><h2>{project.summary}</h2>
+            <p className="eyebrow">DESCRIPTION</p><h2>{project.summary}</h2>
+            {project.metrics.length > 0 && (
+              <div className="metric-grid" aria-label="Project metrics">
+                {project.metrics.map((metric) => (
+                  <div className="metric-card" key={metric.label}>
+                    <span>{metric.label}</span>
+                    <strong>{metric.value}</strong>
+                    <p>{metric.context}</p>
+                  </div>
+                ))}
+              </div>
+            )}
             <div className="contribution-box"><span>PERSONAL CONTRIBUTION</span>{project.contributions.map((item) => <p key={item}>{item}</p>)}</div>
           </section>
           {sections.map(([key, section], index) => (
@@ -63,7 +89,7 @@ export default async function ProjectPage({ params }: Props) {
               <span className="section-number">{String(index + 1).padStart(2, "0")}</span>
               <h2>{section.title}</h2>
               {section.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-              {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{item}</li>)}</ul>}
+              {section.bullets && <ul>{section.bullets.map((item) => <li key={item}>{renderBullet(item, section.title === "Key features")}</li>)}</ul>}
             </section>
           ))}
         </div>
