@@ -126,7 +126,7 @@
 .lanyard-stage canvas{display:block;width:100%;height:100%;touch-action:pan-y}
 .project-image-link>figure{position:relative;width:100%;height:450px;display:flex;align-items:center;justify-content:center;margin:0;perspective:800px}
 .project-image-link>figure>div{position:relative;width:100%;height:450px;overflow:hidden;transform-style:preserve-3d}
-.project-image-link>figure img{display:block;width:100%;height:100%;object-fit:cover;border-radius:3px 42px 3px 3px}
+.project-image-link>figure img{display:block;width:100%;height:100%;padding:12px;object-fit:contain;object-position:center;border-radius:3px 42px 3px 3px;background:var(--surface)}
 .project-flex-carousel{position:relative;height:620px;width:100%;overflow:hidden;border-radius:3px 42px 3px 3px;background:transparent}
 .project-flex-carousel-canvas{height:100%!important;width:100%!important}
 .project-flex-carousel canvas{display:block!important;width:100%!important;height:100%!important}
@@ -134,7 +134,7 @@
 .lanyard-stage{position:relative;z-index:70!important;pointer-events:auto}
 .lanyard-stage>div{top:-60vh;right:auto;bottom:auto;left:-70vw;width:calc(100% + 140vw);height:calc(100% + 60vh + 150px);overflow:visible;pointer-events:none}
 @media(max-width:900px){.lanyard-stage>div{top:-100px;right:auto;bottom:auto;left:-100vw;width:300vw;height:calc(100% + 200px)}}
-@media(max-width:680px){.project-image-link>figure{height:min(76vw,310px)}.project-image-link>figure>div{height:100%}}
+@media(max-width:680px){.project-image-link>figure{height:min(76vw,310px)}.project-image-link>figure>div{height:100%}.project-image-link>figure img{padding:6px}}
 @media(max-width:680px){.project-flex-carousel{height:430px;border-radius:3px 28px 3px 3px}}
 @media(max-width:680px){.lanyard-stage>div{top:-80px;right:auto;bottom:auto;left:-100vw;width:300vw;height:calc(100% + 160px)}}
 .dom-lanyard{position:absolute;inset:0;z-index:2;overflow:visible;touch-action:auto;pointer-events:none}

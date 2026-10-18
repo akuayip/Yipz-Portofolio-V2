@@ -14,8 +14,8 @@ export function ProjectCard({ project }: { project: Project }) {
           containerHeight="450px"
           imageHeight="450px"
           imageWidth="100%"
-          scaleOnHover={1.025}
-          rotateAmplitude={8}
+          scaleOnHover={1}
+          rotateAmplitude={5}
           showMobileWarning={false}
           showTooltip={false}
         />
