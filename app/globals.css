@@ -322,3 +322,6 @@
 /* The lanyard canvas extends beyond the hero to preserve free dragging.
    Keep that render surface from widening the page itself. */
 html,body{max-width:100%;overflow-x:clip}
+
+/* Keep the intro progress line visually behind the skip control. */
+.skip-intro{background:var(--ink);z-index:5}
